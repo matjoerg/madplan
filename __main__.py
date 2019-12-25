@@ -1,3 +1,3 @@
-import madplan
+import madplan.retter
 
-print("Madplan executed")
+print(madplan.retter.print_madplan())
