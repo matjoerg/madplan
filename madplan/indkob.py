@@ -18,5 +18,4 @@ class Indkobsliste:
 
         return self.alle_ingredienser
 
-    def __str__(self):
-        
+#    def __str__(self):

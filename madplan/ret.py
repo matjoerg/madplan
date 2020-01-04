@@ -1,4 +1,4 @@
-import Ingrediens
+from ingrediens import Ingrediens
 
 class Ret:
     """ """
@@ -24,7 +24,7 @@ class Ret:
             if ingrediens.navn == ingrediens_navn:
                 self.ingredienser[index].antal -= antal
                 if self.ingredienser[index].antal <= 0:
-                    del self.ingredienser[index)
+                    del self.ingredienser[index]
                 break
         
     def __str__(self):
