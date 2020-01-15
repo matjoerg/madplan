@@ -1,6 +1,6 @@
 from ingrediens import Ingrediens
 
-class Ret:
+class Opskrift:
     """ """
 
     def __init__(self, navn):

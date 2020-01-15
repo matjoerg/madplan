@@ -1,7 +1,7 @@
 import sys
 import string
 import numpy as np
-from db import Database
+from old_db import Database
 from ingrediens import Ingrediens
 from ret import Ret
 from indkob import Indkobsliste

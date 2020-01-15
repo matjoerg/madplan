@@ -1,97 +1,37 @@
-class Database:
-    """ """
+import sqlite3
+import click
+from flask import current_app, g
+from flask.cli import with_appcontext
 
-    def __init__(self):
-        kategorier = ["Frugt og grønt", "Mejeri", "Kolonial", "Kød"]
+def get_db():
+    if 'db' not in g:
+        g.db = sqlite3.connect(
+            current_app.config['DATABASE'],
+            detect_types=sqlite3.PARSE_DECLTYPES
+        )
+        g.db.row_factory = sqlite3.Row
 
-        alle_hovedretter = {"1 - Kartoffelsalat med frikadeller": {kategorier[0]: ["Kartofler", "Rødløg", "Løg", "Æbler", "Purløg"], 
-                                                                   kategorier[1]: ["Creme fraiche", "Mælk", "Æg"], 
-                                                                   kategorier[2]: ["Hvedemel"]},
-                            "2 - Æggekage": {kategorier[0]: ["Purløg", "Kartofler", "Løg"],
-                                             kategorier[1]: ["Æg"],
-                                             kategorier[2]: ["Rugbrød"],
-                                             kategorier[3]: ["Spegepølse"]},
-                            "3 - Risotto med rodfrugter": {kategorier[0]: ["Rodfrugter", "Pærer", "Løg"],
-                                                           kategorier[1]: ["Parmesanost"],
-                                                           kategorier[2]: ["Grødris"]},
-                            "4 - Frisk pasta med skinke": {kategorier[0]: ["Champignon"],
-                                                           kategorier[1]: ["Fløde", "Revet ost"],
-                                                           kategorier[2]: ["Frisk pasta"],
-                                                           kategorier[3]: ["Tørret skinke"]},
-                            "5 - Lasagne": {kategorier[0]: ["Aubergine", "Gulerødder"],
-                                            kategorier[1]: ["Mælk", "Revet ost", "Smør"],
-                                            kategorier[2]: ["Lasagneplader", "Hvedemel", "Hakkede tomater"],
-                                            kategorier[3]: ["Oksefars"]},
-                            "6 - Ristaffel": {kategorier[0]: ["Rød peber", "Bananer", "Forårsløg", "Æbler", "Ærter", "Majs"],
-                                              kategorier[2]: ["Rosiner", "Peanuts", "Kokosmel", "Ris", "Kokosmælk"],
-                                              kategorier[3]: ["Kylling"]},
-                            "7 - Friske forårsruller": {kategorier[0]: ["Mango", "Rød peber", "Gulerødder", "Agurk", "Forårsløg"],
-                                                        kategorier[2]: ["Sursød sauce", "Rispapir", "Risnudler"],
-                                                        kategorier[3]: ["Kylling"]},
-                            "8 - Pasta/kødsovs": {kategorier[0]: ["Squash", "Champignon", "Løg"],
-                                                  kategorier[1]: ["Mælk", "Revet ost"],
-                                                  kategorier[2]: ["Spaghetti", "Hakkede tomater"],
-                                                  kategorier[3]: ["Oksefars"]},
-                            "9 - Pitabrød": {kategorier[0]: ["Majs", "Ærter", "Rød peber", "Avocado", "Agurk"],
-                                             kategorier[1]: ["Æg"],
-                                             kategorier[2]: ["Tun", "Pitabrød", "Dressing"]},
-                            "10 - Wok": {kategorier[0]: ["Wokblanding"],
-                                         kategorier[2]: ["Kokosmælk", "Ris", "Hakkede tomater"],
-                                         kategorier[3]: ["Kylling"]},
-                            "11 - Mexicanske panderkager": {kategorier[0]: ["Majs", "Ærter", "Agurk", "Rød peber", "Avocado", "Løg"],
-                                                            kategorier[1]: ["Revet ost", "Creme fraiche"],
-                                                            kategorier[2]: ["Taco sauce", "Tortillas", "Kidneybønner"],
-                                                            kategorier[3]: ["Oksefars"]},
-                            "12 - Chili con carne": {kategorier[0]: ["Squash", "Løg", "Avocado"],
-                                                     kategorier[1]: ["Creme fraiche"],
-                                                     kategorier[2]: ["Hakkede tomater", "Kidneybønner", "Sorte bønner", "Mørk chokolade"],
-                                                     kategorier[3]: ["Oksefars"]},
-                            "13 - Svinemørbrad i flødesovs": {kategorier[0]: ["Kartofler", "Champignon", "Rød peber", "Løg"],
-                                                              kategorier[1]: ["Fløde"],
-                                                              kategorier[3]: ["Svinemørbrad"]},
-                            "14 - Grøntsagssuppe": {kategorier[0]: ["Kartofler", "Porrer", "Løg", "Gulerødder"],
-                                                    kategorier[1]: ["Fløde"],
-                                                    kategorier[2]: ["Græskarkerner", "Flutes"],
-                                                    kategorier[3]: ["Chorizo"]},
-                            "15 - Kylling i fad": {kategorier[0]: ["Porrer", "Gulerødder", "Rød peber", "Løg", "Hvidløg", "Kartofler"],
-                                                   kategorier[1]: ["Fløde", "Pikantost"],
-                                                   kategorier[2]: ["Hakkede tomater", "Tomatpuré"],
-                                                   kategorier[3]: ["Kylling"]},
-                            "16 - Fiskefrikadeller og rugbrød": {kategorier[1]: ["Smør"],
-                                                                 kategorier[2]: ["Rugbrød", "Citron", "Remoulade"],
-                                                                 kategorier[3]: ["Fiskefars"]},
-                            "17 - Grillkød med rodfrugter": {kategorier[0]: ["Rodfrugter", "Majskolber", "Aubergine", "Rød peber"],
-                                                             kategorier[3]: ["Grillkød"]},
-                            "18 - Fisk i fad": {kategorier[0]: ["Porrer", "Gulerødder", "Rød peber", "Løg", "Hvidløg", "Kartofler"],
-                                                kategorier[1]: ["Pikantost"],
-                                                kategorier[3]: ["Fisk"]},
-                            "19 - Burger": {kategorier[0]: ["Agurk", "Rød peber", "Grøn salat", "Løg", "Avocado"],
-                                            kategorier[1]: ["Mozarella", "Burgerboller", "Dressing", "Ketchup"],
-                                            kategorier[3]: ["Oksefars"]},
-                            "20 - Grillkød med bagekartofler": {kategorier[0]: ["Aubergine", "Rød peber", "Bagekartofler"],
-                                                                kategorier[1]: ["Creme fraiche"],
-                                                                kategorier[3]: ["Grillkød"]},
-                            "21 - Fars på porrebund": {kategorier[0]: ["Porrer", "Kartofler", "Løg"],
-                                                       kategorier[2]: ["Rasp"],
-                                                       kategorier[3]: ["Kalvefars"]},
-                            "22 - Squashtærte": {kategorier[0]: ["Squash", "Porrer"],
-                                                 kategorier[1]: ["Mælk", "Hytteost", "Feta"],
-                                                 kategorier[2]: ["Tærtedej"],
-                                                 kategorier[3]: ["Tørret skinke"]}}
+    return g.db
 
+def close_db(e=None):
+    db = g.pop('db', None)
 
-        alle_salater = {"a - Broccolisalat": {kategorier[0]: ["Broccoli", "Tranebær"],
-                                              kategorier[1]: ["Hytteost"],
-                                              kategorier[2]: ["Solsikkekerner"]},
-                        "b - Spidskål med æble": {kategorier[0]: ["Æbler", "Spidskål"],
-                                                  kategorier[2]: ["Mandler"]},
-                        "c - Grøn salat": {kategorier[0]: ["Agurk", "Rød peber", "Grøn salat", "Avocado"],
-                                           kategorier[1]: ["Feta"]},
-                        "d - Serrano salat": {kategorier[0]: ["Granatæble", "Grøn salat", "Avocado"],
-                                              kategorier[1]: ["Mozarella"],
-                                              kategorier[3]: ["Tørret skinke"]}}
+    if db is not None:
+        db.close()
 
-        self.alle_retter = {**alle_hovedretter, **alle_salater}
+def init_db():
+    db = get_db()
 
-    def get_db(self):
-        return self.alle_retter
+    with current_app.open_resource('schema.sql') as f:
+        db.executescript(f.read().decode('utf8'))
+
+@click.command('init-db')
+@with_appcontext
+def init_db_command():
+    """Clear the existing data and create new tables."""
+    init_db()
+    click.echo('Initialized the database.')
+
+def init_app(app):
+    app.teardown_appcontext(close_db)
+    app.cli.add_command(init_db_command)

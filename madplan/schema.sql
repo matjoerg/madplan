@@ -1,0 +1,21 @@
+DROP TABLE IF EXISTS Retter;
+DROP TABLE IF EXISTS Ingredienser;
+DROP TABLE IF EXISTS RetterIngredienser;
+
+CREATE TABLE Retter (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  navn TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE Ingredienser (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  navn TEXT UNIQUE NOT NULL,
+  kategori TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE RetterIngredienser (
+  ret_id INTEGER NOT NULL,
+  ingrediens_id INTEGER NOT NULL,
+  FOREIGN KEY (ret_id) REFERENCES Retter (id)
+  FOREIGN KEY (ingrediens_id) REFERENCES Ingredienser (id)
+);
