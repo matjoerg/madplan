@@ -1,0 +1,49 @@
+[
+	{
+		"1": [
+			{
+				"navn": "Kartoffelsalat med frikadeller",
+				"1i": {
+					"navn": "Kartofler",
+					"kategori": "Frugt og grønt",
+					"antal": "1"
+				},
+				"2i": {
+					"navn": "Rødløg",
+					"kategori": "Frugt og grønt",
+					"antal": "1"
+				},
+				"3i": {
+					"navn": "Æbler",
+					"kategori": "Frugt og grønt",
+					"antal": "1"
+				},
+				"4i": {
+					"navn": "Purløg",
+					"kategori": "Frugt og grønt",
+					"antal": "1"
+				},
+				"5i": {
+					"navn": "Creme fraiche",
+					"kategori": "Mejeri",
+					"antal": "1"
+				},
+				"6i": {
+					"navn": "Mælk",
+					"kategori": "Mejeri",
+					"antal": "1"
+				},
+				"7i": {
+					"navn": "Æg",
+					"kategori": "Mejere",
+					"antal": "1"
+				},
+				"8i": {
+					"navn": "Hvedemel",
+					"kategori": "Frugt og grønt",
+					"antal": "1"
+				}
+			}
+		]
+	}
+]

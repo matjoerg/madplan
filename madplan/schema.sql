@@ -16,6 +16,7 @@ CREATE TABLE Ingredienser (
 CREATE TABLE RetterIngredienser (
   ret_id INTEGER NOT NULL,
   ingrediens_id INTEGER NOT NULL,
+  antal INTEGER NOT NULL,
   FOREIGN KEY (ret_id) REFERENCES Retter (id)
   FOREIGN KEY (ingrediens_id) REFERENCES Ingredienser (id)
 );
