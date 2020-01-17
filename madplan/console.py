@@ -1,10 +1,10 @@
 import sys
 import string
 import numpy as np
-from old_db import Database
-from ingrediens import Ingrediens
-from ret import Ret
-from indkob import Indkobsliste
+from madplan.old_db import Database
+from madplan.objects.ingrediens import Ingrediens
+from madplan.objects.ret import Ret
+from madplan.objects.indkob import Indkobsliste
 
 db = Database()
 

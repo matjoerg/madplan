@@ -1,9 +1,10 @@
 import sqlite3
 import click
+import json
 from flask import current_app, g
 from flask.cli import with_appcontext
 
-def get_db():
+def get_db_sqlite3():
     if 'db' not in g:
         g.db = sqlite3.connect(
             current_app.config['DATABASE'],
@@ -13,11 +14,19 @@ def get_db():
 
     return g.db
 
+def get_db():
+    if 'db' not in g:
+        with open("db.json") as f:
+            return json.load(f)
+
 def close_db(e=None):
     db = g.pop('db', None)
 
     if db is not None:
-        db.close()
+        try:
+            db.close()
+        except:
+            print("Database could not be closed.")
 
 def init_db():
     db = get_db()

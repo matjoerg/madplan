@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template
-from . import db
+from . import model
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
@@ -16,10 +16,9 @@ def create_app():
     except OSError:
         pass
     
-    @app.route('/')
-    def hello():
-      return render_template('base.html')
+    from .views import welcome
+    app.register_blueprint(welcome.bp)
 
-    db.init_app(app)
+    model.init_app(app)
     
     return app

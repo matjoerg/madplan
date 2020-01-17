@@ -1,6 +1,6 @@
-from ingrediens import Ingrediens
+from madplan.objects.ingrediens import Ingrediens
 
-class Opskrift:
+class Ret:
     """ """
 
     def __init__(self, navn):
