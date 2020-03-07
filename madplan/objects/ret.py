@@ -1,30 +1,30 @@
-from madplan.objects.ingrediens import Ingrediens
+from madplan.objects.vare import Varer
 
 class Ret:
     """ """
 
     def __init__(self, navn):
         self.navn = navn
-        self.ingredienser = []
+        self.varer = []
 
-    def tilfoj_ingrediens(self, ingrediens_navn, antal=1, kategori=None):
+    def tilfoj_vare(self, vare_navn, antal=1, kategori=None):
         found_duplicate = False
-        for index, ingrediens in enumerate(self.ingredienser):
-            if ingrediens.navn == ingrediens_navn:
-                self.ingredienser[index].antal += antal
+        for index, vare in enumerate(self.varer):
+            if vare.navn == vare_navn:
+                self.varer[index].antal += antal
                 found_duplicate = True
                 break
 
         if not found_duplicate:
-            ingrediens = Ingrediens(ingrediens_navn, antal, kategori)
-            self.ingredienser.append(ingrediens)
+            vare = Vare(vare_navn, antal, kategori)
+            self.varer.append(vare)
 
-    def fjern_ingrediens(self, ingrediens_navn, antal=1):
-        for index, ingrediens in enumerate(self.ingredienser):
-            if ingrediens.navn == ingrediens_navn:
-                self.ingredienser[index].antal -= antal
-                if self.ingredienser[index].antal <= 0:
-                    del self.ingredienser[index]
+    def fjern_vare(self, vare_navn, antal=1):
+        for index, vare in enumerate(self.varer):
+            if vare.navn == vare_navn:
+                self.varer[index].antal -= antal
+                if self.varer[index].antal <= 0:
+                    del self.varer[index]
                 break
         
     def __str__(self):

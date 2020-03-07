@@ -1,4 +1,4 @@
-class Ingrediens:
+class Vare:
     """ """
 
     def __init__(self, navn, antal=1, kategori=None):

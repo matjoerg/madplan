@@ -1,0 +1,22 @@
+[
+    {
+	"id": 1,
+	"navn": "Purløg"
+	"kategori": 1
+    },
+    {
+	"id": 2,
+	"navn": "Kartofler"
+	"kategori": 1
+    },
+    {
+        "id": 3,
+        "navn": "Æg"
+        "kategori": 2
+    },
+    {
+        "id": 4,
+        "navn": "Rugbrød"
+        "kategori": 7
+    }
+]

@@ -1,22 +1,22 @@
 DROP TABLE IF EXISTS Retter;
-DROP TABLE IF EXISTS Ingredienser;
-DROP TABLE IF EXISTS RetterIngredienser;
+DROP TABLE IF EXISTS Varer;
+DROP TABLE IF EXISTS RetterVarer;
 
 CREATE TABLE Retter (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   navn TEXT UNIQUE NOT NULL
 );
 
-CREATE TABLE Ingredienser (
+CREATE TABLE Varer (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   navn TEXT UNIQUE NOT NULL,
   kategori TEXT UNIQUE NOT NULL
 );
 
-CREATE TABLE RetterIngredienser (
+CREATE TABLE RetterVarer (
   ret_id INTEGER NOT NULL,
-  ingrediens_id INTEGER NOT NULL,
+  vare_id INTEGER NOT NULL,
   antal INTEGER NOT NULL,
   FOREIGN KEY (ret_id) REFERENCES Retter (id)
-  FOREIGN KEY (ingrediens_id) REFERENCES Ingredienser (id)
+  FOREIGN KEY (vare_id) REFERENCES Varer (id)
 );

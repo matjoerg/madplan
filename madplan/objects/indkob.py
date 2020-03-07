@@ -2,20 +2,20 @@ class Indkobsliste:
     """ """
 
     def __init__(self):
-        self.alle_ingredienser = []
+        self.alle_varer = []
 
     def saml_alle_ingredienser(self, ugeplan):
         for ret in ugeplan.retter:
-            for ingrediens in ret.ingredienser:
+            for vare in ret.varer:
                 found_duplicate = False
-                for index, other_ingrediens in enumerate(self.alle_ingredienser):
-                    if ingrediens == other_ingrediens:
+                for index, other_vare in enumerate(self.alle_varer):
+                    if vare == other_vare:
                         found_duplicate = True
-                        self.alle_ingredienser[index].antal += ingrediens.antal
+                        self.alle_varer[index].antal += vare.antal
 
                 if not found_duplicate:
-                    self.alle_ingredienser.append(ingrediens)
+                    self.alle_varer.append(vare)
 
-        return self.alle_ingredienser
+        return self.alle_varer
 
 #    def __str__(self):
