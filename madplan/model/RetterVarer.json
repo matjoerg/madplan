@@ -1,0 +1,167 @@
+[
+    {
+	"ret_id": 1,
+	"vare_id": 1,
+	"antal": 0.25
+    },
+    {
+	"ret_id": 1,
+	"vare_id": 2,
+	"antal": 0.25
+    },
+    {
+	"ret_id": 1,
+	"vare_id": 3,
+	"antal": 0.75
+    },
+    {
+	"ret_id": 1,
+	"vare_id": 4,
+	"antal": 0.5
+    },
+    {
+	"ret_id": 1,
+	"vare_id": 5,
+	"antal": 0.25
+    },
+    {
+	"ret_id": 2,
+	"vare_id": 6,
+	"antal": 1
+    },
+    {
+	"ret_id": 2,
+	"vare_id": 7,
+	"antal": 0.2
+    },
+    {
+	"ret_id": 2,
+	"vare_id": 8,
+	"antal": 0.5
+    },
+    {
+	"ret_id": 2,
+	"vare_id": 9,
+	"antal": 1
+    },
+    {
+	"ret_id": 2,
+	"vare_id": 10,
+	"antal": 0.25
+    },
+    {
+	"ret_id": 2,
+	"vare_id": 11,
+	"antal": 0.25
+    },
+    {
+	"ret_id": 2,
+	"vare_id": 12,
+	"antal": 0.05
+    },
+    {
+	"ret_id": 2,
+	"vare_id": 13,
+	"antal": 2
+    },
+    {
+	"ret_id": 2,
+	"vare_id": 14,
+	"antal": 1
+    },
+    {
+	"ret_id": 2,
+	"vare_id": 15,
+	"antal": 1
+    },
+    {
+	"ret_id": 3,
+	"vare_id": 16,
+	"antal": 0.2
+    },
+    {
+	"ret_id": 3,
+	"vare_id": 18,
+	"antal": 1
+    },
+    {
+	"ret_id": 3,
+	"vare_id": 19,
+	"antal": 1
+    },
+    {
+	"ret_id": 3,
+	"vare_id": 20,
+	"antal": 0.5
+    },
+    {
+	"ret_id": 3,
+	"vare_id": 21,
+	"antal": 1
+    },
+    {
+	"ret_id": 3,
+	"vare_id": 22,
+	"antal": 1
+    },
+    {
+	"ret_id": 3,
+	"vare_id": 23,
+	"antal": 0.25
+    },
+    {
+	"ret_id": 4,
+	"vare_id": 24,
+	"antal": 1
+    },
+    {
+	"ret_id": 4,
+	"vare_id": 25,
+	"antal": 3
+    },
+    {
+	"ret_id": 4,
+	"vare_id": 26,
+	"antal": 1
+    },
+    {
+	"ret_id": 4,
+	"vare_id": 27,
+	"antal": 1
+    },
+    {
+	"ret_id": 4,
+	"vare_id": 28,
+	"antal": 1
+    },
+    {
+	"ret_id": 5,
+	"vare_id": 2,
+	"antal": 0.5
+    },
+    {
+	"ret_id": 5,
+	"vare_id": 25,
+	"antal": 3
+    },
+    {
+	"ret_id": 5,
+	"vare_id": 31,
+	"antal": 0.2
+    },
+    {
+	"ret_id": 5,
+	"vare_id": 29,
+	"antal": 1
+    },
+    {
+	"ret_id": 5,
+	"vare_id": 30,
+	"antal": 0.5
+    },
+    {
+	"ret_id": 5,
+	"vare_id": 5,
+	"antal": 0.25
+    }
+]

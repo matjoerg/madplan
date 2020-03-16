@@ -2,7 +2,7 @@ import sys
 import string
 import numpy as np
 from madplan.old_db import Database
-from madplan.objects.ingrediens import Ingrediens
+from madplan.objects.vare import Vare
 from madplan.objects.ret import Ret
 from madplan.objects.indkob import Indkobsliste
 

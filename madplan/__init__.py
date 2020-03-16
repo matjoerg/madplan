@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template
-from . import model
+from madplan.model import model
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)

@@ -1,0 +1,160 @@
+[
+    {
+	"id": 1,
+	"navn": "Purløg",
+	"kategori": 1
+    },
+    {
+	"id": 2,
+	"navn": "Kartofler",
+	"kategori": 1
+    },
+    {
+        "id": 3,
+        "navn": "Æg",
+        "kategori": 2
+    },
+    {
+        "id": 4,
+        "navn": "Rugbrød",
+        "kategori": 7
+    },
+    {
+        "id": 5,
+        "navn": "Spegepølse",
+        "kategori": 6
+    },
+    {
+        "id": 6,
+        "navn": "Augergine",
+        "kategori": 1
+    },
+    {
+        "id": 7,
+        "navn": "Gulerødder",
+        "kategori": 1
+    },
+    {
+        "id": 8,
+        "navn": "Mælk",
+        "kategori": 2
+    },
+    {
+        "id": 9,
+        "navn": "Revet ost",
+        "kategori": 2
+    },
+    {
+        "id": 10,
+        "navn": "Smør",
+        "kategori": 2
+    },
+    {
+        "id": 11,
+        "navn": "Lasagneplader",
+        "kategori": 3
+    },
+    {
+        "id": 12,
+        "navn": "Hvedemel",
+        "kategori": 3
+    },
+    {
+        "id": 13,
+        "navn": "Hakkede tomater",
+        "kategori": 3
+    },
+    {
+        "id": 14,
+        "navn": "Oksefars",
+        "kategori": 3
+    },
+    {
+        "id": 15,
+        "navn": "Kidneybønner",
+        "kategori": 3
+    },
+    {
+        "id": 16,
+        "navn": "Majs",
+        "kategori": 5
+    },
+    {
+        "id": 17,
+        "navn": "Ærter",
+        "kategori": 5
+    },
+    {
+        "id": 18,
+        "navn": "Rød peber",
+        "kategori": 1
+    },
+    {
+        "id": 19,
+        "navn": "Avocado",
+        "kategori": 1
+    },
+    {
+        "id": 20,
+        "navn": "Agurk",
+        "kategori": 1
+    },
+    {
+        "id": 21,
+        "navn": "Tun",
+        "kategori": 3
+    },
+    {
+        "id": 22,
+        "navn": "Pitabrød",
+        "kategori": 7
+    },
+    {
+        "id": 23,
+        "navn": "Dressing",
+        "kategori": 3
+    },
+    {
+        "id": 24,
+        "navn": "Squash",
+        "kategori": 1
+    },
+    {
+        "id": 25,
+        "navn": "Porre",
+        "kategori": 1
+    },
+    {
+        "id": 26,
+        "navn": "Hytteost",
+        "kategori": 2
+    },
+    {
+        "id": 27,
+        "navn": "Tærtedej",
+        "kategori": 5
+    },
+    {
+        "id": 28,
+        "navn": "Tørret skinke",
+        "kategori": 6
+    },
+    {
+        "id": 29,
+        "navn": "Fløde",
+        "kategori": 2
+	
+    },
+    {
+        "id": 30,
+        "navn": "Græskarkerner",
+        "kategori": 1
+	
+    },
+    {
+        "id": 31,
+        "navn": "Løg",
+        "kategori": 1
+	
+    }
+]

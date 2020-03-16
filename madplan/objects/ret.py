@@ -1,4 +1,4 @@
-from madplan.objects.vare import Varer
+from madplan.objects.vare import Vare
 
 class Ret:
     """ """
