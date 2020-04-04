@@ -1,11 +1,14 @@
+from madplan.objects.ret import Ret
+
+
 class Ugeplan:
     """ """
 
-    def __init__(self, ugenummer=None):
-        self.ugenummer = ugenummer
+    def __init__(self):
         self.retter = []
-       
-    def tilfoj_ret(self, ret, ugedag=None):
+
+    def tilfoj_ret(self, ret_navn, ugedag=None):
+        ret = Ret(ret_navn)
         ret.ugedag = ugedag
         self.retter.append(ret)
 
@@ -13,5 +16,8 @@ class Ugeplan:
         s = '*** Madplan ***\n'
         s += '\n'
         for ret in self.retter:
-            s += '{}: {}\n'.format(ret.ugedag, ret.navn)
+            s += '*** {}: {} ***\n'.format(ret.ugedag, ret.navn)
+            for vare in ret.varer:
+                s += '{} ({}) ({})\n'.format(vare.navn, vare.antal, vare.kategori)
+            s += '\n'
         return s

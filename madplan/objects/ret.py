@@ -1,4 +1,6 @@
 from madplan.objects.vare import Vare
+from madplan.model import model
+
 
 class Ret:
     """ """
@@ -6,17 +8,29 @@ class Ret:
     def __init__(self, navn):
         self.navn = navn
         self.varer = []
+        self.initialize()
 
-    def tilfoj_vare(self, vare_navn, antal=1, kategori=None):
+    def initialize(self):
+        db = model.get_db()
+        cur = db.cursor()
+        cur.execute("""SELECT Varer.navn, Varer.kategori, RetterVarer.antal FROM Retter 
+                    INNER JOIN RetterVarer ON Retter.id = RetterVarer.ret_id 
+                    INNER JOIN Varer on RetterVarer.vare_id = Varer.id 
+                    WHERE Retter.navn = '{}';""".format(self.navn))
+        varer = cur.fetchall()
+        for vare in varer:
+            self.tilfoj_vare(vare['navn'], vare['kategori'], vare['antal'])
+
+    def tilfoj_vare(self, navn, kategori=None, antal=1):
         found_duplicate = False
-        for index, vare in enumerate(self.varer):
-            if vare.navn == vare_navn:
+        for index, other_vare in enumerate(self.varer):
+            if other_vare.navn == navn:
                 self.varer[index].antal += antal
                 found_duplicate = True
                 break
 
         if not found_duplicate:
-            vare = Vare(vare_navn, antal, kategori)
+            vare = Vare(navn, antal, kategori)
             self.varer.append(vare)
 
     def fjern_vare(self, vare_navn, antal=1):
@@ -26,6 +40,6 @@ class Ret:
                 if self.varer[index].antal <= 0:
                     del self.varer[index]
                 break
-        
+
     def __str__(self):
         return self.navn

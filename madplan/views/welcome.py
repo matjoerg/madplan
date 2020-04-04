@@ -1,7 +1,24 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, redirect
+from madplan.model import model
+from madplan.objects.ugeplan import Ugeplan
 
 bp = Blueprint('welcome', __name__)
 
-@bp.route('/')
+
+@bp.route('/', methods=['POST', 'GET'])
 def hello():
-    return render_template('base.html')
+    db = model.get_db()
+    cur = db.cursor()
+    cur.execute("SELECT navn FROM Retter;")
+    alle_retter = cur.fetchall()
+
+    if request.method == "POST":
+        valgte_retter = request.form.to_dict()
+        ugeplan = Ugeplan()
+        for (ugedag, ret_navn) in zip(valgte_retter.keys(), valgte_retter.values()):
+            if len(ret_navn) > 0:
+                ugeplan.tilfoj_ret(ret_navn, ugedag)
+        print(ugeplan)
+        return render_template('base.html', data=alle_retter, valgte_retter=valgte_retter)
+
+    return render_template('base.html', data=alle_retter, valgte_retter=False)

@@ -9,16 +9,19 @@
     <p>
         Vælg retter til den kommende uge og tryk på "Lav indkøbsliste".
     </p>
-    <form>
+    <form action="/" method="POST">
         {% for dag in ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"] %}
-        {{ dag }}: <input list={{dag}} name={{dag}}>
+        {{ dag }}: <input type="text" list={{dag}} name={{dag}}>
         <datalist id={{dag}}>
-            <option value="Kartofler og lakridser"></option>
-            <option value="Lasagne"></option>
-            <option value="Kartofler og vingummier"></option>
+            {% for ret in data %}
+            <option value={{ ret[0] }}>
+            {% endfor %}
         </datalist><br>
         {% endfor %}
         <input type="submit" value="Lav indkøbsliste">
     </form>
+    {% if valgte_retter %}
+    <p>Hej</p>
+    {% endif %}
 </body>
 </html>

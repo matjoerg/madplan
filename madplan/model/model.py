@@ -49,8 +49,6 @@ def seed_db():
 
     sql_varer = "INSERT INTO Varer (id, navn, kategori) VALUES (?, ?, ?);"
     alle_varer = [(vare['id'], vare['navn'], vare['kategori']) for vare in json_varer]
-    print(sql_varer)
-    print(alle_varer)
     c.executemany(sql_varer, alle_varer)
     
     sql_retter_varer = "INSERT INTO RetterVarer (ret_id, vare_id, antal) VALUES (?, ?, ?);"

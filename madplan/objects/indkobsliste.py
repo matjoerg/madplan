@@ -4,7 +4,7 @@ class Indkobsliste:
     def __init__(self):
         self.alle_varer = []
 
-    def saml_alle_ingredienser(self, ugeplan):
+    def saml_alle_varer(self, ugeplan):
         for ret in ugeplan.retter:
             for vare in ret.varer:
                 found_duplicate = False

@@ -1,7 +1,7 @@
 class Vare:
     """ """
 
-    def __init__(self, navn, antal=1, kategori=None):
+    def __init__(self, navn, kategori=None, antal=1):
         self.navn = navn
         self.antal = antal
         self.kategori = kategori
