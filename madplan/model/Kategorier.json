@@ -1,0 +1,42 @@
+[
+    {
+	"id": 1,
+	"navn": "Frugt og Grønt",
+	"sortering": 1
+    },
+    {
+	"id": 2,
+	"navn": "Mejeri",
+	"sortering": 4
+    },
+    {
+	"id": 3,
+	"navn": "Kolonial",
+	"sortering": 7
+    },
+    {
+	"id": 4,
+	"navn": "Kød",
+	"sortering": 5
+    },
+    {
+	"id": 5,
+	"navn": "Frost",
+	"sortering": 6
+    },
+    {
+	"id": 6,
+	"navn": "Pålæg",
+	"sortering": 3
+    },
+    {
+	"id": 7,
+	"navn": "Brød",
+	"sortering": 2
+    },
+    {
+	"id": 8,
+	"navn": "Husholdning",
+	"sortering": 8
+    }
+]

@@ -17,5 +17,3 @@ class Indkobsliste:
                     self.alle_varer.append(vare)
 
         return self.alle_varer
-
-#    def __str__(self):

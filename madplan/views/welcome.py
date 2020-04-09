@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request
 from madplan.model import model
 from madplan.objects.ugeplan import Ugeplan
 
@@ -18,7 +18,7 @@ def hello():
         for (ugedag, ret_navn) in zip(valgte_retter.keys(), valgte_retter.values()):
             if len(ret_navn) > 0:
                 ugeplan.tilfoj_ret(ret_navn, ugedag)
-        print(ugeplan)
-        return render_template('base.html', data=alle_retter, valgte_retter=valgte_retter)
+        ugeplan.lav_indkobsliste()
+        return render_template('base.html', data=alle_retter, ugeplan=ugeplan)
 
-    return render_template('base.html', data=alle_retter, valgte_retter=False)
+    return render_template('base.html', data=alle_retter, ugeplan=False)

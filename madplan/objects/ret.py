@@ -7,21 +7,23 @@ class Ret:
 
     def __init__(self, navn):
         self.navn = navn
+        self.ugedag = None
         self.varer = []
         self.initialize()
 
     def initialize(self):
         db = model.get_db()
         cur = db.cursor()
-        cur.execute("""SELECT Varer.navn, Varer.kategori, RetterVarer.antal FROM Retter 
+        cur.execute("""SELECT Varer.navn, Kategorier.navn kategori, RetterVarer.antal FROM Retter 
+                    INNER JOIN Kategorier ON Varer.kategori_id = Kategorier.id
                     INNER JOIN RetterVarer ON Retter.id = RetterVarer.ret_id 
                     INNER JOIN Varer on RetterVarer.vare_id = Varer.id 
                     WHERE Retter.navn = '{}';""".format(self.navn))
         varer = cur.fetchall()
         for vare in varer:
-            self.tilfoj_vare(vare['navn'], vare['kategori'], vare['antal'])
+            self.tilfoj_vare(vare['navn'], vare['antal'], vare['kategori'])
 
-    def tilfoj_vare(self, navn, kategori=None, antal=1):
+    def tilfoj_vare(self, navn, antal=1, kategori=None):
         found_duplicate = False
         for index, other_vare in enumerate(self.varer):
             if other_vare.navn == navn:

@@ -1,7 +1,7 @@
 class Vare:
     """ """
 
-    def __init__(self, navn, kategori=None, antal=1):
+    def __init__(self, navn, antal=1, kategori=None):
         self.navn = navn
         self.antal = antal
         self.kategori = kategori
@@ -11,3 +11,6 @@ class Vare:
             return self.navn == other.navn
         else:
             return False
+
+    def __str__(self):
+        return self.navn

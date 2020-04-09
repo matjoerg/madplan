@@ -1,27 +1,86 @@
 <!DOCTYPE html>
 <html lang="dk">
+<style>
+    .row {
+      display: flex;
+    }
+
+    .column {
+      flex: 50%;
+      display: inline-block;
+      align-text: center;
+    }
+
+    ul.alignMe b {
+      display: inline-block;
+      width: 80px;
+    }
+
+    form span.alignMe {
+      display: inline-block;
+      width: 60px;
+      text-align: right;
+    }
+</style>
+<script>
+    function CopyToClipboard(containerid) {
+        if (document.selection) {
+            var range = document.body.createTextRange();
+            range.moveToElementText(document.getElementById(containerid));
+            range.select().createTextRange();
+            document.execCommand("copy");
+        } else if (window.getSelection) {
+            var range = document.createRange();
+            range.selectNode(document.getElementById(containerid));
+            window.getSelection().addRange(range);
+            document.execCommand("copy");
+            alert("Ugeplanen er kopieret til udklipsholderen.")
+        }
+    }
+</script>
 <head>
     <meta charset="UTF-8">
     <title>Madplan</title>
 </head>
 <body>
-    <h1> Forside til madplan</h1>
-    <p>
-        Vælg retter til den kommende uge og tryk på "Lav indkøbsliste".
-    </p>
-    <form action="/" method="POST">
-        {% for dag in ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"] %}
-        {{ dag }}: <input type="text" list={{dag}} name={{dag}}>
-        <datalist id={{dag}}>
-            {% for ret in data %}
-            <option value={{ ret[0] }}>
-            {% endfor %}
-        </datalist><br>
-        {% endfor %}
-        <input type="submit" value="Lav indkøbsliste">
-    </form>
-    {% if valgte_retter %}
-    <p>Hej</p>
-    {% endif %}
+    <div class="row">
+        <div class="column">
+            <div align="center">
+                <h1>Forside til madplan</h1>
+                <p>Vælg retter til den kommende uge og tryk på "Lav indkøbsliste".</p>
+                <form class="alignMe" action="/" method="POST">
+                    {% for dag in ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"] %}
+                    <span class="alignMe">{{ dag }}:</span> <input type="text" list={{dag}} name={{dag}}>
+                    <datalist id={{dag}}>
+                        {% for ret in data %}
+                        <option value={{ ret[0] }}>
+                        {% endfor %}
+                    </datalist><br>
+                    {% endfor %} <br>
+                    <input type="submit" value="Lav indkøbsliste">
+                </form>
+            </div>
+            {% if ugeplan %}
+            <div id="ugeplan">
+                <h3>Indkøbsliste</h3>
+                <ul class="alignMe">
+                    {% for ret in ugeplan.retter %}
+                    <li><b>{{ ret.ugedag }}:</b> {{ ret.navn }}</li>
+                    {% endfor %}
+                </ul><br>
+                {% for kategori in ugeplan.indkobsliste.keys() %}
+                <b>{{ kategori }}</b><br>
+                {% for vare in ugeplan.indkobsliste[kategori] %}
+                {{ vare.navn }} ({{ vare.antal if vare.antal>=1 else 1 }})<br>
+                {% endfor %}<br>
+                {% endfor %}
+            </div>
+            <button id="copyugeplan" onclick="CopyToClipboard('ugeplan')">Kopiér ugeplanen</button>
+            {% endif %}
+        </div>
+        <div class="column">
+            Kolonne to.
+        </div>
+    </div>
 </body>
 </html>
