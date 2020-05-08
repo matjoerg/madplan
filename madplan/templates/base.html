@@ -62,10 +62,11 @@
                 <p>Vælg retter til den kommende uge.</p>
                 <form class="alignMe" action="/" method="POST">
                     {% for dag in ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"] %}
-                    <span class="alignMe">{{ dag }}:</span> <input type="text" list={{dag}} name={{dag}}>
+                    <span class="alignMe">{{ dag }}:</span>
+                    <input type="text" list={{ dag }} name={{ dag }}>
                     <datalist id={{dag}}>
                         {% for ret in data %}
-                        <option value={{ ret[0] }}>
+                        <option value="{{ ret[0] }}">
                         {% endfor %}
                     </datalist><br>
                     {% endfor %} <br>
@@ -86,8 +87,8 @@
                 {% for vare in ugeplan.indkobsliste[kategori] %}
                 {% set vareid = vare.navn|replace(" ", "_") %}
                 {% set checkboxid = "check_" + vareid %}
-                <input type="checkbox" id={{ checkboxid }} onclick="StrikeThroughText('{{ vareid }}', '{{ checkboxid }}')">
-                <span id={{ vareid }}>{{ vare.navn }} ({{ vare.antal if vare.antal>=1 else 1 }})</span><br>
+                <input type="checkbox" id={{checkboxid}} onclick="StrikeThroughText('{{ vareid }}', '{{ checkboxid }}')">
+                <span id={{ vareid }}>{{ vare.navn }} ({{ vare.antal if vare.antal>=1 else 1 }})</span><br>
                 {% endfor %}<br>
                 {% endfor %}
             </div>
@@ -96,7 +97,42 @@
         <div class="column">
             <div align="center">
                 <h1>Tilføj eller rediger retter</h1>
+                <p>Find en ret eller tilføj en ny.</p>
+                <form action="/" method="POST">
+                    Navn på ret: <input type="text" list="valgt_ret_navn" name="valgt_ret_navn">
+                    <datalist id="valgt_ret_navn">
+                        {% for ret in data %}
+                        <option value="{{ ret[0] }}">
+                        {% endfor %}
+                    </datalist><br>
+                    <br>
+                    <input type="submit" value="Find ret">
+                </form>
             </div>
+            {% if valgt_ret %}
+            <div align="center">
+                <p>Retten findes allerede i databasen. Lav ændringer her.</p>
+                <form class="alignMe" action="/" method="POST">
+                    {% for vare in valgt_ret %}
+                    {% set vareid = "vare_" + loop.index|string %}
+                    {% set vareid_antal = "vare_" + loop.index|string + "_antal" %}
+                    {% set vareid_kategori = "vare_" + loop.index|string + "_kategori" %}
+                    {% set varenum = "Vare " + loop.index|string %}
+                    <span class="alignMe">{{ varenum }}:</span>
+                    <input type="text" list={{ vareid }} name={{ vareid }} value="{{ vare[0] }}">
+                    <datalist id={{ vareid }}>
+                        <option value="{{ vare[0] }}">
+                    </datalist>
+                    <input type="text" size="7" maxlength="5" list={{ vareid_antal }} name={{ vareid_antal }} value="{{ vare[1] }}">
+                    <input type="text" list={{ vareid_kategori }} name={{ vareid_kategori }} value="{{ vare[2] }}"><br>
+                    <datalist id={{ vareid_kategori }}>
+                        <option value="{{ vare[2] }}">
+                    </datalist>
+                    {% endfor %} <br>
+                    <input type="submit" value="Gem ret">
+                </form>
+            </div>
+            {% endif %}
         </div>
     </div>
 </body>

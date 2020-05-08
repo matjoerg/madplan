@@ -14,7 +14,7 @@ class Ret:
     def initialize(self):
         db = model.get_db()
         cur = db.cursor()
-        cur.execute("""SELECT Varer.navn, Kategorier.navn kategori, RetterVarer.antal FROM Retter 
+        cur.execute("""SELECT Varer.navn, RetterVarer.antal, Kategorier.navn kategori FROM Retter 
                     INNER JOIN Kategorier ON Varer.kategori_id = Kategorier.id
                     INNER JOIN RetterVarer ON Retter.id = RetterVarer.ret_id 
                     INNER JOIN Varer on RetterVarer.vare_id = Varer.id 
