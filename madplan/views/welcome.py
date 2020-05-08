@@ -26,9 +26,16 @@ def hello():
             cur.execute("""SELECT Varer.navn, RetterVarer.antal, Kategorier.navn kategori FROM Retter 
                         INNER JOIN Kategorier ON Varer.kategori_id = Kategorier.id
                         INNER JOIN RetterVarer ON Retter.id = RetterVarer.ret_id 
-                        INNER JOIN Varer on RetterVarer.vare_id = Varer.id 
+                        INNER JOIN Varer ON RetterVarer.vare_id = Varer.id 
                         WHERE Retter.navn = '{}';""".format(ret_navn['valgt_ret_navn']))
             valgt_ret = cur.fetchall()
+
+            cur.execute("""SELECT Retter.navn, Varer.navn vare, RetterVarer.antal, Kategorier.navn kategori FROM Retter
+                        INNER JOIN Varer ON RetterVarer.vare_id = Varer.id
+                        INNER JOIN RetterVarer ON Retter.id = RetterVarer.ret_id
+                        INNER JOIN Kategorier ON Varer.kategori_id = Kategorier.id
+                        ORDER BY Retter.navn asc;""")
+            database = cur.fetchall()
             return render_template('base.html', data=alle_retter, valgt_ret=valgt_ret)
 
     return render_template('base.html', data=alle_retter)
