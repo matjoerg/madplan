@@ -49,6 +49,15 @@
             vare.style.opacity = "1.0";
         }
     }
+
+    function addElement(parentId, elementTag, elementId, html) {
+       // Adds an element to the document
+        var p = document.getElementById(parentId);
+        var newElement = document.createElement(elementTag);
+        newElement.setAttribute('id', elementId);
+        newElement.innerHTML = html;
+        p.appendChild(newElement);
+    }
 </script>
 <head>
     <meta charset="UTF-8">
@@ -73,6 +82,7 @@
                     <input type="submit" value="Lav indkøbsliste">
                 </form>
             </div>
+
             {% if ugeplan %}
             <button id="copyugeplan" onclick="CopyToClipboard('ugeplan')">Kopiér indkøbslisten</button>
             <div id="ugeplan">
@@ -94,12 +104,18 @@
             </div>
             {% endif %}
         </div>
+
         <div class="column">
             <div align="center">
                 <h1>Tilføj eller rediger retter</h1>
                 <p>Find en ret eller tilføj en ny.</p>
                 <form action="/" method="POST">
-                    Navn på ret: <input type="text" list="valgt_ret_navn" name="valgt_ret_navn">
+                    Navn på ret:
+                    {% if valgt_ret_navn %}
+                    <input type="text" list="valgt_ret_navn" name="valgt_ret_navn" value="{{ valgt_ret_navn }}">
+                    {% else %}
+                    <input type="text" list="valgt_ret_navn" name="valgt_ret_navn">
+                    {% endif %}
                     <datalist id="valgt_ret_navn">
                         {% for ret in data %}
                         <option value="{{ ret[0] }}">
@@ -109,6 +125,7 @@
                     <input type="submit" value="Find ret">
                 </form>
             </div>
+
             {% if valgt_ret %}
             <div align="center">
                 <p>Retten findes allerede i databasen. Lav ændringer her.</p>
@@ -121,13 +138,20 @@
                     <span class="alignMe">{{ varenum }}:</span>
                     <input type="text" list={{ vareid }} name={{ vareid }} value="{{ vare[0] }}">
                     <datalist id={{ vareid }}>
-                        <option value="{{ vare[0] }}">
+                        {% for vare_navn in varer %}
+                        <option value="{{ vare_navn[0] }}">
+                        {% endfor %}
                     </datalist>
                     <input type="text" size="7" maxlength="5" list={{ vareid_antal }} name={{ vareid_antal }} value="{{ vare[1] }}">
-                    <input type="text" list={{ vareid_kategori }} name={{ vareid_kategori }} value="{{ vare[2] }}"><br>
-                    <datalist id={{ vareid_kategori }}>
-                        <option value="{{ vare[2] }}">
-                    </datalist>
+                    <select id={{ vareid_kategori }} name={{ vareid_kategori }}>
+                        {% for kategori_navn in kategorier %}
+                        {% if kategori_navn[0] == vare[2] %}
+                            <option value="{{ kategori_navn[0] }}" selected>{{ kategori_navn[0] }}</option>
+                        {% else %}
+                            <option value="{{ kategori_navn[0] }}">{{ kategori_navn[0] }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select><br>
                     {% endfor %} <br>
                     <input type="submit" value="Gem ret">
                 </form>
