@@ -21,6 +21,7 @@ def hello():
                     ugeplan.tilfoj_ret(ret_navn, ugedag)
             ugeplan.lav_indkobsliste()
             return render_template('base.html', data=alle_retter, ugeplan=ugeplan)
+
         elif len(request.form) == 1:
             ret_navn = request.form.to_dict()['valgt_ret_navn']
             cur.execute("""SELECT Varer.navn, RetterVarer.antal, Kategorier.navn kategori FROM Retter 
@@ -41,6 +42,19 @@ def hello():
             return render_template('base.html',
                                    data=alle_retter, valgt_ret=valgt_ret, valgt_ret_navn=ret_navn,
                                    varer=varer, kategorier=kategorier)
+
+        elif 'valgt_ret_navn' in request.form.to_dict().keys():
+            gemt_ret = request.form.to_dict()
+            ret_navn = gemt_ret['valgt_ret_navn']
+
+            cur.execute("""INSERT OR IGNORE INTO Retter (navn) 
+                        VALUES ('{}');""".format(ret_navn))
+            db.commit()
+            cur.execute("""SELECT Retter.id FROM Retter 
+                        WHERE Retter.navn = '{}';""".format(ret_navn))
+            ret_id = cur.fetchall()[0]['id']
+            a = 'hej'
+
 
     return render_template('base.html', data=alle_retter)
 

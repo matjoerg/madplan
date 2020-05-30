@@ -49,15 +49,6 @@
             vare.style.opacity = "1.0";
         }
     }
-
-    function addElement(parentId, elementTag, elementId, html) {
-       // Adds an element to the document
-        var p = document.getElementById(parentId);
-        var newElement = document.createElement(elementTag);
-        newElement.setAttribute('id', elementId);
-        newElement.innerHTML = html;
-        p.appendChild(newElement);
-    }
 </script>
 <head>
     <meta charset="UTF-8">
@@ -126,15 +117,27 @@
                 </form>
             </div>
 
-            {% if valgt_ret %}
+            {% if valgt_ret_navn %}
             <div align="center">
+                {% if valgt_ret|length != 0 %}
                 <p>Retten findes allerede i databasen. Lav ændringer her.</p>
+                {% else %}
+                <p>Retten findes ikke i databasen. Tilføj varer og tryk på "Gem ret".</p>
+                {% endif %}
                 <form class="alignMe" action="/" method="POST">
-                    {% for vare in valgt_ret %}
-                    {% set vareid = "vare_" + loop.index|string %}
-                    {% set vareid_antal = "vare_" + loop.index|string + "_antal" %}
-                    {% set vareid_kategori = "vare_" + loop.index|string + "_kategori" %}
-                    {% set varenum = "Vare " + loop.index|string %}
+                    <div id="alle_varer">
+                    <input type="text" name="valgt_ret_navn" value="{{ valgt_ret_navn }}" hidden>
+                    {% for idx in range(15) %}
+                    {% if valgt_ret|length > idx %}
+                        {% set vare = valgt_ret[idx] %}
+                    {% else %}
+                        {% set vare = ['', '', ''] %}
+                    {% endif %}
+                    {% set loop_index = loop.index %}
+                    {% set vareid = "vare_" + loop_index|string %}
+                    {% set vareid_antal = "vare_" + loop_index|string + "_antal" %}
+                    {% set vareid_kategori = "vare_" + loop_index|string + "_kategori" %}
+                    {% set varenum = "Vare " + loop_index|string %}
                     <span class="alignMe">{{ varenum }}:</span>
                     <input type="text" list={{ vareid }} name={{ vareid }} value="{{ vare[0] }}">
                     <datalist id={{ vareid }}>
@@ -144,6 +147,7 @@
                     </datalist>
                     <input type="text" size="7" maxlength="5" list={{ vareid_antal }} name={{ vareid_antal }} value="{{ vare[1] }}">
                     <select id={{ vareid_kategori }} name={{ vareid_kategori }}>
+                        <option value="" selected disabled hidden>Kategori</option>
                         {% for kategori_navn in kategorier %}
                         {% if kategori_navn[0] == vare[2] %}
                             <option value="{{ kategori_navn[0] }}" selected>{{ kategori_navn[0] }}</option>
@@ -152,7 +156,7 @@
                         {% endif %}
                         {% endfor %}
                     </select><br>
-                    {% endfor %} <br>
+                    {% endfor %}</div><br>
                     <input type="submit" value="Gem ret">
                 </form>
             </div>
