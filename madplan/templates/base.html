@@ -168,7 +168,7 @@
                     </select><br>
                     {% endfor %}</div><br>
                     <label for="sideret"> Sideret</label>
-                    {% if valgt_ret_sideret[0][0] == 1 %}
+                    {% if valgt_ret_sideret[0]|length > 0 and valgt_ret_sideret[0][0] == 1 %}
                     <input type="checkbox" id="sideret" name="sideret" value="True" checked><br><br>
                     {% else %}
                     <input type="checkbox" id="sideret" name="sideret" value="True"><br><br>
