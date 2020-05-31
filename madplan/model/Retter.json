@@ -1,22 +1,27 @@
 [
     {
 	"id": 1,
-	"navn": "Æggekage"
+	"navn": "Æggekage",
+    "sideret": 0
     },
     {
 	"id": 2,
-	"navn": "Lasagne"
+	"navn": "Lasagne",
+    "sideret": 0
     },
     {
 	"id": 3,
-	"navn": "Pitabrød"
+	"navn": "Pitabrød",
+    "sideret": 0
     },
     {
 	"id": 4,
-	"navn": "Squashtærte"
+	"navn": "Squashtærte",
+    "sideret": 0
     },
     {
 	"id": 5,
-	"navn": "Grøntsagssuppe"
+	"navn": "Grøntsagssuppe",
+    "sideret": 0
     }
 ]

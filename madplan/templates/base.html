@@ -63,9 +63,15 @@
                 <form class="alignMe" action="/" method="POST">
                     {% for dag in ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"] %}
                     <span class="alignMe">{{ dag }}:</span>
-                    <input type="text" list={{ dag }} name={{ dag }}>
-                    <datalist id={{dag}}>
+                    <input type="text" list="{{ dag }}" name="{{ dag }}">
+                    <datalist id="{{ dag }}">
                         {% for ret in data %}
+                        <option value="{{ ret[0] }}">
+                        {% endfor %}
+                    </datalist>
+                    <input type="text" list="{{ dag }}_side" name="{{ dag }}_side">
+                    <datalist id="{{ dag }}_side">
+                        {% for ret in data if ret[1] == 1 %}
                         <option value="{{ ret[0] }}">
                         {% endfor %}
                     </datalist><br>
@@ -79,8 +85,12 @@
             <div id="ugeplan">
                 <h3>Indkøbsliste</h3>
                 <ul class="alignMe">
-                    {% for ret in ugeplan.retter %}
-                    <li><b>{{ ret.ugedag }}:</b> {{ ret.navn }}</li>
+                    {% for ret in ugeplan.retter if '_side' not in ret.ugedag %}
+                    <li><b>{{ ret.ugedag }}:</b> {{ ret.navn }}
+                    {% for ret_side in ugeplan.retter if ret_side.ugedag == ret.ugedag+'_side' %}
+                    med {{ ret_side.navn }}
+                    {% endfor %}
+                    </li>
                     {% endfor %}
                 </ul><br>
                 {% for kategori in ugeplan.indkobsliste.keys() %}
@@ -89,7 +99,7 @@
                 {% set vareid = vare.navn|replace(" ", "_") %}
                 {% set checkboxid = "check_" + vareid %}
                 <input type="checkbox" id={{checkboxid}} onclick="StrikeThroughText('{{ vareid }}', '{{ checkboxid }}')">
-                <span id={{ vareid }}>{{ vare.navn }} ({{ vare.antal if vare.antal>=1 else 1 }})</span><br>
+                <span id={{ vareid }}>{{ vare.navn }} ({{ vare.antal|round(0, 'ceil')|int }})</span><br>
                 {% endfor %}<br>
                 {% endfor %}
             </div>
@@ -157,6 +167,12 @@
                         {% endfor %}
                     </select><br>
                     {% endfor %}</div><br>
+                    <label for="sideret"> Sideret</label>
+                    {% if valgt_ret_sideret[0][0] == 1 %}
+                    <input type="checkbox" id="sideret" name="sideret" value="True" checked><br><br>
+                    {% else %}
+                    <input type="checkbox" id="sideret" name="sideret" value="True"><br><br>
+                    {% endif %}
                     <input type="submit" value="Gem ret">
                 </form>
             </div>

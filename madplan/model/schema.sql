@@ -5,7 +5,8 @@ DROP TABLE IF EXISTS Kategorier;
 
 CREATE TABLE Retter (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  navn TEXT UNIQUE NOT NULL
+  navn TEXT UNIQUE NOT NULL,
+  sideret INTEGER NOT NULL
 );
 
 CREATE TABLE Varer (
@@ -17,9 +18,10 @@ CREATE TABLE Varer (
 CREATE TABLE RetterVarer (
   ret_id INTEGER NOT NULL,
   vare_id INTEGER NOT NULL,
-  antal INTEGER NOT NULL,
+  antal REAL NOT NULL,
   FOREIGN KEY (ret_id) REFERENCES Retter (id),
-  FOREIGN KEY (vare_id) REFERENCES Varer (id)
+  FOREIGN KEY (vare_id) REFERENCES Varer (id),
+  UNIQUE(ret_id, vare_id)
 );
 
 CREATE TABLE Kategorier (

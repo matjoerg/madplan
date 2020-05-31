@@ -9,11 +9,11 @@ bp = Blueprint('welcome', __name__)
 def hello():
     db = model.get_db()
     cur = db.cursor()
-    cur.execute("SELECT navn FROM Retter;")
+    cur.execute("SELECT navn, sideret FROM Retter;")
     alle_retter = cur.fetchall()
 
     if request.method == "POST":
-        if len(request.form) == 7:
+        if len(request.form) == 14:
             valgte_retter = request.form.to_dict()
             ugeplan = Ugeplan()
             for (ugedag, ret_navn) in zip(valgte_retter.keys(), valgte_retter.values()):
@@ -39,22 +39,44 @@ def hello():
                         ORDER BY sortering ASC;""")
             kategorier = cur.fetchall()
 
+            cur.execute("""SELECT sideret FROM Retter
+                        WHERE navn = '{}';""".format(ret_navn))
+            ret_sideret = cur.fetchall()
+
             return render_template('base.html',
                                    data=alle_retter, valgt_ret=valgt_ret, valgt_ret_navn=ret_navn,
-                                   varer=varer, kategorier=kategorier)
+                                   valgt_ret_sideret=ret_sideret, varer=varer, kategorier=kategorier)
 
         elif 'valgt_ret_navn' in request.form.to_dict().keys():
             gemt_ret = request.form.to_dict()
             ret_navn = gemt_ret['valgt_ret_navn']
-
-            cur.execute("""INSERT OR IGNORE INTO Retter (navn) 
-                        VALUES ('{}');""".format(ret_navn))
-            db.commit()
-            cur.execute("""SELECT Retter.id FROM Retter 
-                        WHERE Retter.navn = '{}';""".format(ret_navn))
+            sideret = 1 if 'sideret' in gemt_ret.keys() else 0
+            cur.execute("""INSERT OR IGNORE INTO Retter (navn, sideret) 
+                        VALUES ('{}', {});""".format(ret_navn, sideret))
+            cur.execute("""SELECT id FROM Retter 
+                        WHERE navn = '{}';""".format(ret_navn))
             ret_id = cur.fetchall()[0]['id']
-            a = 'hej'
 
+            alle_varer = []
+            antal_varer = len([key for key in gemt_ret.keys() if 'kategori' in key])
+            for vare_idx in range(1, antal_varer+1):
+                vare = 'vare_' + str(vare_idx)
+                ny_vare = {'navn': gemt_ret[vare],
+                           'antal': gemt_ret[vare + '_antal'],
+                           'kategori': gemt_ret[vare + '_kategori']}
+                alle_varer.append(ny_vare)
+
+            for vare in alle_varer:
+                cur.execute("""INSERT OR IGNORE INTO Varer (navn, kategori_id) 
+                            VALUES ('{}', (SELECT id FROM Kategorier WHERE navn='{}'));"""
+                            .format(vare['navn'], vare['kategori']))
+                cur.execute("""SELECT id FROM Varer 
+                            WHERE navn = '{}';""".format(vare['navn']))
+                vare_id = cur.fetchall()[0]['id']
+                cur.execute("""INSERT OR REPLACE INTO RetterVarer (ret_id, vare_id, antal) 
+                            VALUES ({}, {}, '{}');""".format(ret_id, vare_id, vare['antal']))
+
+            db.commit()
 
     return render_template('base.html', data=alle_retter)
 
