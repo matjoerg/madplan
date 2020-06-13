@@ -88,7 +88,7 @@
                     {% for ret in ugeplan.retter if '_side' not in ret.ugedag %}
                     <li><b>{{ ret.ugedag }}:</b> {{ ret.navn }}
                     {% for ret_side in ugeplan.retter if ret_side.ugedag == ret.ugedag+'_side' %}
-                    med {{ ret_side.navn }}
+                    + {{ ret_side.navn }}
                     {% endfor %}
                     </li>
                     {% endfor %}
