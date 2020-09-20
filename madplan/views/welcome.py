@@ -57,10 +57,15 @@ def hello():
                         WHERE navn = '{}';""".format(ret_navn))
             ret_id = cur.fetchall()[0]['id']
 
+            cur.execute("""DELETE FROM RetterVarer 
+                        WHERE ret_id = {};""".format(ret_id))
+            
             alle_varer = []
-            antal_varer = len([key for key in gemt_ret.keys() if 'kategori' in key])
-            for vare_idx in range(1, antal_varer+1):
-                vare = 'vare_' + str(vare_idx)
+            vare_indices = [key for key in gemt_ret.keys() if ('antal' not in key and
+                                                               'kategori' not in key and
+                                                               'navn' not in key)
+                            and gemt_ret[key] != '']
+            for vare in vare_indices:
                 ny_vare = {'navn': gemt_ret[vare],
                            'antal': gemt_ret[vare + '_antal'],
                            'kategori': gemt_ret[vare + '_kategori']}
