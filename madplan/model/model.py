@@ -38,7 +38,7 @@ def seed_db():
     db = get_db()
     c = db.cursor()
 
-    script_dir = os.path.dirname(__file__)
+    script_dir = os.path.dirname(__file__) + 'initdb/'
     retter = open(os.path.join(script_dir, "Retter.json"), 'r')
     varer = open(os.path.join(script_dir, "Varer.json"), 'r')
     retter_varer = open(os.path.join(script_dir, "RetterVarer.json"), 'r')
@@ -69,7 +69,7 @@ def seed_db():
     db.close()
 
 
-@click.command('init-db')
+@click.command('initdb-db')
 @with_appcontext
 def init_db_command():
     """Clear the existing data and create new tables."""

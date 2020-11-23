@@ -1,9 +1,6 @@
 import sys
-import string
 import numpy as np
-from madplan.model.old_db import Database
-from madplan.objects.vare import Vare
-from madplan.objects.ret import Ret
+from madplan.model.initdb.old_db import Database
 
 db = Database()
 
