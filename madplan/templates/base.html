@@ -65,7 +65,7 @@
                     <span class="alignMe">{{ dag }}:</span>
                     <input type="text" list="{{ dag }}" name="{{ dag }}">
                     <datalist id="{{ dag }}">
-                        {% for ret in data %}
+                        {% for ret in data if ret[1] == 0 %}
                         <option value="{{ ret[0] }}">
                         {% endfor %}
                     </datalist>
