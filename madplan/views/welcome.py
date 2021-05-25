@@ -20,7 +20,7 @@ def hello():
             return get_vare(alle_retter, cur)
 
         elif 'valgt_ret_navn' in request.form.to_dict().keys():
-            return save_vare(cur, db)
+            save_vare(cur, db)
 
     return render_template('base.html', data=alle_retter)
 
